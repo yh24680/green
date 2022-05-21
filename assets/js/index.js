@@ -1,5 +1,15 @@
 $(function () {
   getUserInfo();
+
+  // 获取layer 
+  layer = layui.layer;
+  // 退出登录
+  $("#btnLogout").click(() => {
+    layer.confirm("确认退出",{icon:3,title:""},function (index) {
+      localStorage.removeItem("token");
+      location.href = "/login.html";
+    })
+  })
 });
 
 function getUserInfo() {
@@ -19,6 +29,14 @@ function getUserInfo() {
       layer.msg("获取用户信息成功");
       randerAvatar(res.data);
     },
+    // // 不论成功失败，最终都会调用complete 回调函数
+    // complete: (res) => {
+    //   // console.log(res);
+    //   if(res.responseJSON.status === 1 && res.responseJSON.message === "身份认证失败") {
+    //     localStorage.removeItem("token");
+    //     localtion.href = "/login.html";
+    //   }
+    // }
   });
 }
 
